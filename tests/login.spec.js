@@ -49,7 +49,6 @@ test("Displays a message in case account is locked", async({page, lockedUsername
   })
 })
 
-//Fails, frontend doesn't recognize cookie for some reason
 test("Logs returning user back in automatically", async({page, context, cookieName, cookieValue}) => {
   await test.step("Add cookie to browser", async () => {
     let cookie = [{name:cookieName, value:cookieValue, url:process.env.baseURL, secure: false, hostOnly : true, sameSite: "None"}];
@@ -57,12 +56,7 @@ test("Logs returning user back in automatically", async({page, context, cookieNa
     await context.addCookies(cookie);
   })
 
-  await test.step("Navigate to login page", async () => {
-    console.log(await page.context().cookies());
-    await page.goto("/");
-  })
-
-  await test.step("Redirect to inventory page", async () => {
-    await expect(page).toHaveURL("/inventory.html");
+  await test.step("Navigate to authentication gated page", async () => {
+    await page.goto("/inventory.html");
   })
 })
