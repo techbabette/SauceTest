@@ -18,7 +18,6 @@ test('Can log in with valid information', async ({ page, validUsername, correctP
   })
 
   await test.step("Redirect to inventory page", async () => {
-    console.log(await page.context().cookies());
     await expect(page).toHaveURL("/inventory.html");
   })
 });
@@ -49,6 +48,11 @@ test("Displays a message in case account is locked", async({page, lockedUsername
   })
 })
 
+test("Rejects unauthenticated user from viewing gated page", async ({page}) =>{
+  await page.goto("/inventory.html");
+  await expect(page).toHaveURL("/");
+})
+
 test("Logs returning user back in automatically", async({page, context, cookieName, cookieValue}) => {
   await test.step("Add cookie to browser", async () => {
     let cookie = [{name:cookieName, value:cookieValue, url:process.env.baseURL, secure: false, hostOnly : true, sameSite: "None"}];
@@ -56,7 +60,8 @@ test("Logs returning user back in automatically", async({page, context, cookieNa
     await context.addCookies(cookie);
   })
 
-  await test.step("Navigate to authentication gated page", async () => {
+  await test.step("Navigate to authentication gated page and stay", async () => {
     await page.goto("/inventory.html");
+    await expect(page).toHaveURL("/inventory.html");
   })
 })
