@@ -1,4 +1,4 @@
-const { test, expect } = require('./setup.js');
+const { test, authenticatedTest, expect } = require('./setup.js');
 
 test('Can log in with valid information', async ({ page, validUsername, correctPassword }) => {
   await page.goto('/');
@@ -65,3 +65,11 @@ test("Logs returning user back in automatically", async({page, context, cookieNa
     await expect(page).toHaveURL("/inventory.html");
   })
 })
+
+// Alternative, less clear way of testing the previous case, using an authentication fixture
+// authenticatedTest("Logs returning user back in automatically", async({authenticatedPage}) => {
+//   await authenticatedTest.step("Navigate to authentication gated page and stay", async () => {
+//     await authenticatedPage.goto("/inventory.html");
+//     await expect(authenticatedPage).toHaveURL("/inventory.html");
+//   })
+// })
