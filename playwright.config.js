@@ -1,6 +1,5 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-import dotenv from "dotenv";
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -28,14 +27,6 @@ module.exports = defineConfig({
     baseURL: 'https://www.saucedemo.com/',
 
     testIdAttribute: 'data-test',
-
-    /*
-    Reading secret information from env file.
-    Kept the env file visible as this project is only for practice purposes.
-    */
-    validUsername: process.env.validUsername,
-    correctPassword: process.env.correctPassword,
-    lockedUsername: process.env.lockedUsername,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
