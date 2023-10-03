@@ -10,7 +10,7 @@ authenticatedTest("Add and remove items from cart.", async ({authenticatedPage})
         item = await authenticatedPage.locator(".inventory_item").first();
         addedItemName = await item.locator(".inventory_item_name").textContent();
 
-        inventoryButton = await item.locator(".btn_inventory");
+        inventoryButton = item.locator(".btn_inventory");
         await inventoryButton.click();
     })
 
